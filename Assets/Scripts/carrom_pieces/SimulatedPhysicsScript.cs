@@ -12,14 +12,14 @@ public class SimulatedPhysicsScript : MonoBehaviour
     void Start()
     {
         // initialize minX, maxX, minY, maxY
-        Transform bXform = Constants.board.GetComponent<Transform>();
+        Transform bXform = Global.board.GetComponent<Transform>();
         Tilemap bTileMap = bXform.GetComponentInChildren<Tilemap>();
 
         Vector2Int size = (Vector2Int) bTileMap.size;
         Vector2 pos = bTileMap.GetComponent<Transform>().position;
 
-        minX = pos.x + Constants.borderSize; maxX = pos.x + (size.x - 3 * Constants.borderSize); 
-        minY = pos.y + Constants.borderSize; maxY = pos.y + (size.x - 3 * Constants.borderSize);
+        minX = pos.x + Global.borderSize; maxX = pos.x + (size.x - 3 * Global.borderSize); 
+        minY = pos.y + Global.borderSize; maxY = pos.y + (size.x - 3 * Global.borderSize);
     }
 
     // Update is called once per frame
@@ -37,10 +37,12 @@ public class SimulatedPhysicsScript : MonoBehaviour
         Vector2 v = new Vector2(rb.velocity.x, rb.velocity.y);
         float x = p.x; float y = p.y;
         if (x <= minX || x >= maxX) {  // then rebound the object in the x direction
-             v.x = -v.x;
+            v.x = -v.x;
+            v *= (1 - Global.wallEnergyAbsorption);
         }
         if (y <= minY || y >= maxY) {
             v.y = -v.y;
+            v *= (1 - Global.wallEnergyAbsorption);
         }
         rb.velocity = v;
     }

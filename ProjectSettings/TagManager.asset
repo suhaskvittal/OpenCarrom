@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Board
+  - ManAncestor
+  - StrikerAncestor
+  - Striker
+  - Black Man
+  - White Man
+  - Red Man
   layers:
   - Default
   - TransparentFX
